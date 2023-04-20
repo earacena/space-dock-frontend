@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Login';
+import { Button, Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 interface Container {
   containerId: string,
@@ -38,7 +39,7 @@ function Containers() {
             <TableCell>Status</TableCell>
             <TableCell>Container Name</TableCell>
             <TableCell>Base Image</TableCell>
-            <TableCell>VsCode URI</TableCell>
+            <TableCell>VsCode</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -51,7 +52,12 @@ function Containers() {
               <TableCell><Chip color={c.containerStatus === "running" ? "success" : "error"} label={c.containerStatus}/></TableCell>
               <TableCell>{c.containerName}</TableCell>
               <TableCell>{c.containerImage}</TableCell>
-              <TableCell>{c.vscodeUri}</TableCell>
+              <TableCell>
+                <Button onClick={() => open(c.vscodeUri)}>
+                  <LoginIcon />
+                  Open
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
