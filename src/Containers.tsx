@@ -39,7 +39,7 @@ function Containers() {
             <TableCell>Status</TableCell>
             <TableCell>Container Name</TableCell>
             <TableCell>Base Image</TableCell>
-            <TableCell>VsCode</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
