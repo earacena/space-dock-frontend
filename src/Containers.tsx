@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 interface Container {
   containerId: string,
   containerShortId: string,
   containerImage: string,
   containerName: string,
+  containerStatus: string,
   vscodeUri: string,
 }
 
@@ -34,6 +35,7 @@ function Containers() {
         <TableHead>
           <TableRow>
             <TableCell>Short ID</TableCell>
+            <TableCell>Status</TableCell>
             <TableCell>Container Name</TableCell>
             <TableCell>Base Image</TableCell>
             <TableCell>VsCode URI</TableCell>
@@ -46,6 +48,7 @@ function Containers() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">{c.containerShortId}</TableCell>
+              <TableCell><Chip color={c.containerStatus === "running" ? "success" : "error"} label={c.containerStatus}/></TableCell>
               <TableCell>{c.containerName}</TableCell>
               <TableCell>{c.containerImage}</TableCell>
               <TableCell>{c.vscodeUri}</TableCell>
