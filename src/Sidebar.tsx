@@ -17,7 +17,7 @@ function Sidebar() {
             selected={selectedIndex === 0}
             onClick={() => {
               setSelectedIndex(0);
-              navigate('/containers');
+              navigate('/');
             }}
           >
             <ListItemIcon>
