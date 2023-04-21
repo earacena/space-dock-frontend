@@ -18,7 +18,7 @@ function Containers() {
   useEffect(() => {
     const fetchContainers = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/fetch/containers/info/all');
+        const response = await fetch('http://127.0.0.1:5000/fetch/container/info/all');
         const responseJson = await response.json();
         console.log(responseJson);
         setContainers(responseJson.containers);
