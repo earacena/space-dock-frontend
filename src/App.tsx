@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { css, Global } from '@emotion/react';
-import Sidebar from './Sidebar';
-import Home from './Home';
-import Images from './Images';
-import Containers from './Containers';
+import { Sidebar } from './features/Sidebar';
+import { Home } from './features/Home';
+import { Images } from './features/Images';
+import { Containers } from './features/Containers';
 import { Route, Routes } from 'react-router-dom';
-import { Box } from '@mui/material';
 
 function App() {
   return (
