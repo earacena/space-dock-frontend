@@ -3,31 +3,40 @@ import { css, Global } from '@emotion/react';
 import { Sidebar } from './features/Sidebar';
 import { Home } from './features/Home';
 import { Images } from './features/Images';
-import { Containers } from './features/Containers';
+import { ContainerList } from './features/Containers';
 import { Route, Routes } from 'react-router-dom';
+import { Container as MuiContainer, createTheme, CssBaseline, GlobalStyles, ThemeProvider} from '@mui/material';
+
+const injectDarkGlobalStyles = <GlobalStyles styles={{ body: { backgroundColor: '#1f1f1f' } }} />;
 
 function App() {
+  const [themeMode, setThemeMode] = useState<string>('dark');
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    }
+  });
+
+  const lightTheme = createTheme();
+
   return (
-    <div
-      className="App"
-      css={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}
-    >
-      <Global styles={{
-        maxHeight: '100vh',
-        maxWidth: '100vw',
-        width: '100vw',
-        height: '100vh',
-        body: {
-          margin: '0',
-        }
-      }} />
-      <Sidebar />
-      <Routes>
-        <Route index path="/" element={<Home />} />
-        <Route path="/images" element={<Images />} />
-        <Route path="/containers" element={<Containers />} />
-      </Routes>
-    </div>
+    <ThemeProvider theme={themeMode === 'dark' ? darkTheme : lightTheme}>
+      <div
+        className="App"
+        css={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}
+      >
+        <CssBaseline />
+        {themeMode === 'dark' && injectDarkGlobalStyles}
+        <Sidebar />
+        <MuiContainer>
+          <Routes>
+            <Route index path="/" element={<Home />} />
+            <Route path="/images" element={<Images />} />
+            <Route path="/containers" element={<ContainerList />} />
+          </Routes>
+        </MuiContainer>
+      </div>
+    </ThemeProvider>
   );
 }
 
