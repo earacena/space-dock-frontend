@@ -19,7 +19,6 @@ function Images() {
       try {
         const response = await fetch("http://127.0.0.1:5000/fetch/image/info/all");
         const responseJson = await response.json();
-        console.log(responseJson);
         setImages(responseJson.images);
       } catch (error: unknown) {
         console.error(error);
