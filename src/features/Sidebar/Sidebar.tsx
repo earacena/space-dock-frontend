@@ -10,7 +10,7 @@ function Sidebar() {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ height: '100vh', maxWidth: '360px' }}>
+    <Box sx={{ height: '100vh', maxWidth: '360px', borderRadius: '0px 16px 16px 0', bgcolor: '#2d2f31' }}>
       <nav>
         <List sx={{ width: '300px', maxWidth: '360px' }}>
           <ListItemButton
