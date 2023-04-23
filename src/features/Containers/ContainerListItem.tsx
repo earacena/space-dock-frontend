@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Typography } from '@mui/material';
 import type { Container as ContainerType } from './container.types';
 import DeveloperBoard from '@mui/icons-material/DeveloperBoard';
-import Login from '@mui/icons-material/Login';
+import { OpenInNew } from '@mui/icons-material';
 
 interface ContainerListItemProps {
   container: ContainerType,
@@ -46,7 +46,7 @@ function ContainerListItem({ container }: ContainerListItemProps) {
       </ListItemText>
       <ListItemSecondaryAction>
         <Button onClick={() => open(container.vscodeUri)}>
-          <Login />
+          <OpenInNew />
         </Button>
       </ListItemSecondaryAction>
     </ListItem>
