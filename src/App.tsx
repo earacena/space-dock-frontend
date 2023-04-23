@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { css, Global } from '@emotion/react';
 import { Sidebar } from './features/Sidebar';
 import { Home } from './features/Home';
-import { Images } from './features/Images';
+import { ImagesList } from './features/Images';
 import { ContainerList } from './features/Containers';
 import { Route, Routes } from 'react-router-dom';
 import { Container as MuiContainer, createTheme, CssBaseline, GlobalStyles, ThemeProvider} from '@mui/material';
@@ -31,7 +31,7 @@ function App() {
         <MuiContainer>
           <Routes>
             <Route index path="/" element={<Home />} />
-            <Route path="/images" element={<Images />} />
+            <Route path="/images" element={<ImagesList />} />
             <Route path="/containers" element={<ContainerList />} />
           </Routes>
         </MuiContainer>
