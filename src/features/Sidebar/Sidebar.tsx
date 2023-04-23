@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Box, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import HomeIcon from '@mui/icons-material/Home';
@@ -13,6 +13,10 @@ function Sidebar() {
     <Box sx={{ height: '100vh', maxWidth: '360px', borderRadius: '0px 16px 16px 0', bgcolor: '#2d2f31' }}>
       <nav>
         <List sx={{ width: '300px', maxWidth: '360px' }}>
+          <ListItem>
+            <span role="img" aria-label="satalitte" css={{ fontSize: '40px' }}>🛰</span>
+            <Typography variant="h4" component="h1">space-dock</Typography>
+          </ListItem>
           <ListItemButton
             selected={selectedIndex === 0}
             onClick={() => {
