@@ -1,69 +1,135 @@
-import React, { useState } from 'react';
+import React, { Fragment, KeyboardEvent, MouseEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { AppBar, Box, CssBaseline, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import HomeIcon from '@mui/icons-material/Home';
+import { Menu } from '@mui/icons-material';
+
+const drawerWidth = 300;
 
 function Sidebar() {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const navigate = useNavigate();
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawerContents = (
+    <List sx={{ width: '300px', maxWidth: '360px', padding: 0 }}>
+      <ListItemButton
+        selected={selectedIndex === 0}
+        onClick={() => {
+          setSelectedIndex(0);
+          navigate('/');
+        }}
+      >
+        <ListItemIcon>
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText>
+          Home
+        </ListItemText>
+      </ListItemButton>
+
+      <ListItemButton
+        selected={selectedIndex === 1}
+        onClick={() => {
+          setSelectedIndex(1);
+          navigate('/images');
+        }}
+      >
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText>
+          Images
+        </ListItemText>
+      </ListItemButton>
+
+      <ListItemButton
+        selected={selectedIndex === 2}
+        onClick={() => {
+          setSelectedIndex(2);
+          navigate('/containers');
+        }}
+      >
+        <ListItemIcon>
+          <DeveloperBoardIcon />
+        </ListItemIcon>
+        <ListItemText>
+          Containers
+        </ListItemText>
+      </ListItemButton>
+    </List>
+  );
+
   return (
-    <Box sx={{ height: '100vh', maxWidth: '360px', borderRadius: '0px 16px 16px 0', bgcolor: '#2d2f31' }}>
-      <nav>
-        <List sx={{ width: '300px', maxWidth: '360px' }}>
-          <ListItem>
-            <span role="img" aria-label="satalitte" css={{ fontSize: '40px' }}>🛰</span>
-            <Typography variant="h4" component="h1">space-dock</Typography>
-          </ListItem>
-          <ListItemButton
-            selected={selectedIndex === 0}
-            onClick={() => {
-              setSelectedIndex(0);
-              navigate('/');
-            }}
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          width: { md: `calc(100% - ${drawerWidth}px)`},
+          ml: { md: `${drawerWidth}px` },
+        }}
+      >
+        <Toolbar sx={{ display: 'flex', flexDirection: 'row' }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { md: 'none' } }}
           >
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText>
-              Home
-            </ListItemText>
-          </ListItemButton>
+            <Menu />
+          </IconButton>
+          <span css={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}>
+            <span role="img" aria-label="satalitte" css={{ fontSize: '40px', paddingRight: '5px' }}>🛰</span>
+            <Typography variant="h4" component="h1" sx={{ fontFamily: "Abel" }}>Space Dock</Typography>
+          </span>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="nav"
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+        aria-label="app sections"
+      >
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better performance on mobile
+          }}
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+            }
+          }}
+        >
+          {drawerContents}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', md: 'block' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+            }
+          }}
+          open
+        >
+          {drawerContents}
+        </Drawer>
 
-          <ListItemButton
-            selected={selectedIndex === 1}
-            onClick={() => {
-              setSelectedIndex(1);
-              navigate('/images');
-            }}
-          >
-            <ListItemIcon>
-              <LayersIcon />
-            </ListItemIcon>
-            <ListItemText>
-              Images
-            </ListItemText>
-          </ListItemButton>
-
-          <ListItemButton
-            selected={selectedIndex === 2}
-            onClick={() => {
-              setSelectedIndex(2);
-              navigate('/containers');
-            }}
-          >
-            <ListItemIcon>
-              <DeveloperBoardIcon />
-            </ListItemIcon>
-            <ListItemText>
-              Containers
-            </ListItemText>
-          </ListItemButton>
-
-        </List>
-      </nav>
+      </Box>
     </Box>
   );
 }
