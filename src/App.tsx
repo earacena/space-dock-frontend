@@ -28,7 +28,7 @@ function App() {
         <CssBaseline />
         {themeMode === 'dark' && injectDarkGlobalStyles}
         <Sidebar />
-        <MuiContainer>
+        <MuiContainer sx={{ my: 6 }}>
           <Routes>
             <Route index path="/" element={<Home />} />
             <Route path="/images" element={<ImagesList />} />
