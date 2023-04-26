@@ -1,11 +1,13 @@
-import { TableRows, TableRowsRounded } from '@mui/icons-material';
-import { List, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Construction, TableRows, TableRowsRounded } from '@mui/icons-material';
+import { List, Box, Button} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Image as ImageType } from './image.types';
 import ImageListItem from './ImageListItem';
+import ImageFormDialog from './ImageFormDialog';
 
 function ImageList() {
   const [images, setImages] = useState<ImageType[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -22,38 +24,25 @@ function ImageList() {
   }, []);
 
   return (
-    <List>
-      {images.map((i) => (
-        <ImageListItem key={i.imageId} image={i} />
-      ))}
-    </List>
-    //<TableContainer>
-    //    <Table aria-label="container table">
-    //    <TableHead>
-    //      <TableRow>
-    //        <TableCell>Short ID</TableCell>
-    //        <TableCell>Repo ID</TableCell>
-    //        <TableCell>Base Image</TableCell>
-    //        <TableCell>Packages</TableCell>
-    //      </TableRow>
-    //    </TableHead>
-    //    <TableBody>
-    //      {images.map((i) => (
-    //        <TableRow
-    //          key={i.imageId}
-    //          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-    //        >
-    //          <TableCell component="th" scope="row">{i.imageShortId}</TableCell>
-    //          <TableCell>{i.repoId}</TableCell>
-    //          <TableCell>{i.baseImage}</TableCell>
-    //          <TableCell>
-    //            {i.packages}
-    //          </TableCell>
-    //        </TableRow>
-    //      ))}
-    //    </TableBody>
-    //  </Table>
-    //</TableContainer>
+    <Box>
+      <List>
+        {images.map((i) => (
+          <ImageListItem key={i.imageId} image={i} />
+          ))}
+      </List>
+      <ImageFormDialog 
+        open={open}
+        setOpen={setOpen}
+      />
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+        <Button variant="contained" size="large" color="primary" aria-label="build" onClick={() => setOpen(true)}>
+          <Construction sx={{ mr: 1 }}  />
+          Build Image
+        </Button>
+
+      </Box>
+    </Box>
+
   );
 }
 
