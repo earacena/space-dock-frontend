@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Typography } from '@mui/material';
 import { Image as ImageType } from './image.types';
-import { Construction, Layers } from '@mui/icons-material';
+import { Construction, Layers, MoreHoriz } from '@mui/icons-material';
 import { useTheme } from '@emotion/react';
 
 interface ImagelistItemProps {
@@ -38,7 +38,7 @@ function ImageListItem({ image }: ImagelistItemProps) {
       </ListItemText>
       <ListItemSecondaryAction>
         <Button>
-          <Construction />
+          <MoreHoriz />
         </Button>
       </ListItemSecondaryAction>
     </ListItem>
