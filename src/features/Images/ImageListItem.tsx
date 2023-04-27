@@ -1,15 +1,15 @@
-import React from 'react';
-import { Button, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Tooltip, Typography } from '@mui/material';
 import { Image as ImageType } from './image.types';
-import { Construction, Layers, MoreHoriz } from '@mui/icons-material';
-import { useTheme } from '@emotion/react';
+import { Layers, RocketLaunch } from '@mui/icons-material';
+import LaunchConfirmationDialog from './LaunchConfirmationDialog';
 
 interface ImagelistItemProps {
   image: ImageType,
 }
 
 function ImageListItem({ image }: ImagelistItemProps) {
-  const theme = useTheme();
+  const [launchConfirmationDialogOpened, setLaunchConfirmationDialogOpened] = useState(false);
 
   return (
     <ListItem
@@ -36,10 +36,17 @@ function ImageListItem({ image }: ImagelistItemProps) {
           {image.repoName}
         </span>
       </ListItemText>
+      <LaunchConfirmationDialog
+        open={launchConfirmationDialogOpened}
+        setOpen={setLaunchConfirmationDialogOpened}
+        image={image}
+      />
       <ListItemSecondaryAction>
-        <Button>
-          <MoreHoriz />
-        </Button>
+        <Tooltip title="Launch container with this image">
+          <Button onClick={() => setLaunchConfirmationDialogOpened(true)}>
+            <RocketLaunch />
+          </Button>
+        </Tooltip>
       </ListItemSecondaryAction>
     </ListItem>
   );
