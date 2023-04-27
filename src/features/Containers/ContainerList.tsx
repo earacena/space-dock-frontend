@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import LoginIcon from '@mui/icons-material/Login';
-import { Button, Chip, List, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { List } from '@mui/material';
 import ContainerListItem from './ContainerListItem';
 import type { Container as ContainerType } from './container.types';
 
@@ -25,7 +24,7 @@ function ContainerList() {
   return (
     <List>
       {containers.map((c) => (
-        <ContainerListItem key={c.containerId} container={c}/>
+        <ContainerListItem key={c.containerId} container={c} />
       ))}
     </List>
   );
