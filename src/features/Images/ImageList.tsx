@@ -1,5 +1,5 @@
-import { Construction, TableRows, TableRowsRounded } from '@mui/icons-material';
-import { List, Box, Button} from '@mui/material';
+import { Construction } from '@mui/icons-material';
+import { List, Box, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Image as ImageType } from './image.types';
 import ImageListItem from './ImageListItem';
@@ -7,7 +7,7 @@ import ImageFormDialog from './ImageFormDialog';
 
 function ImageList() {
   const [images, setImages] = useState<ImageType[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
+  const [imageFormDialogOpened, setImageDialogOpened] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -28,18 +28,17 @@ function ImageList() {
       <List>
         {images.map((i) => (
           <ImageListItem key={i.imageId} image={i} />
-          ))}
+        ))}
       </List>
-      <ImageFormDialog 
-        open={open}
-        setOpen={setOpen}
+      <ImageFormDialog
+        open={imageFormDialogOpened}
+        setOpen={setImageDialogOpened}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
-        <Button variant="contained" size="large" color="primary" aria-label="build" onClick={() => setOpen(true)}>
-          <Construction sx={{ mr: 1 }}  />
+        <Button variant="contained" size="large" color="primary" aria-label="build" onClick={() => setImageDialogOpened(true)}>
+          <Construction sx={{ mr: 1 }} />
           Build Image
         </Button>
-
       </Box>
     </Box>
 
