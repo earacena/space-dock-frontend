@@ -1,5 +1,5 @@
-import { Box, Dialog, DialogContent, DialogTitle, useMediaQuery, useTheme } from '@mui/material';
-import React, { SetStateAction, useState } from 'react';
+import { Dialog, DialogContent, DialogTitle, useMediaQuery, useTheme } from '@mui/material';
+import React, { SetStateAction } from 'react';
 import ImageForm from './ImageForm';
 
 interface ImageFormDialogProps {
