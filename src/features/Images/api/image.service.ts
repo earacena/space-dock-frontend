@@ -1,4 +1,3 @@
-
 const backendUrl = "http://localhost:5000";
 
 interface ImageServiceCreateProps {
@@ -9,7 +8,7 @@ interface ImageServiceCreateProps {
   startCommand: string,
 }
 
-export const create = async ({
+const create = async ({
   gitRepositoryLink,
   baseImage,
   updateCommand,
@@ -40,4 +39,22 @@ export const create = async ({
 
   return responseJson;
 };
+
+const fetchAll = async () => {
+  const response = await fetch(`${backendUrl}/fetch/image/info/all`);
+  const responseJson = await response.json();
+
+  if (responseJson.error) {
+    console.error(responseJson.error);
+  }
+
+  return responseJson.images;
+};
+
+const actions = {
+  create,
+  fetchAll,
+};
+
+export default actions;
 
