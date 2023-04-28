@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Image as ImageType } from './image.types';
 import ImageListItem from './ImageListItem';
 import ImageFormDialog from './ImageFormDialog';
+import imageService from './api/image.service';
 
 function ImageList() {
   const [images, setImages] = useState<ImageType[]>([]);
@@ -12,9 +13,8 @@ function ImageList() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/fetch/image/info/all");
-        const responseJson = await response.json();
-        setImages(responseJson.images);
+        const fetchedImages = await imageService.fetchAll();
+        setImages(fetchedImages);
       } catch (error: unknown) {
         console.error(error);
       }
@@ -33,6 +33,7 @@ function ImageList() {
       <ImageFormDialog
         open={imageFormDialogOpened}
         setOpen={setImageDialogOpened}
+        setImages={setImages}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
         <Button variant="contained" size="large" color="primary" aria-label="build" onClick={() => setImageDialogOpened(true)}>
