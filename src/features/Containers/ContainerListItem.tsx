@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Typography } from '@mui/material';
+import { Button, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Tooltip, Typography } from '@mui/material';
 import type { Container as ContainerType } from './container.types';
 import DeveloperBoard from '@mui/icons-material/DeveloperBoard';
 import { OpenInNew } from '@mui/icons-material';
@@ -45,9 +45,11 @@ function ContainerListItem({ container }: ContainerListItemProps) {
         </span>
       </ListItemText>
       <ListItemSecondaryAction>
-        <Button onClick={() => open(container.vscodeUri)}>
-          <OpenInNew />
-        </Button>
+        <Tooltip title="Open container in VsCode">
+          <Button onClick={() => open(container.vscodeUri)}>
+            <OpenInNew />
+          </Button>
+        </Tooltip>
       </ListItemSecondaryAction>
     </ListItem>
   );
