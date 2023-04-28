@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { List } from '@mui/material';
 import ContainerListItem from './ContainerListItem';
 import type { Container as ContainerType } from './container.types';
+import containerService from './api/container.service';
 
 function ContainerList() {
   const [containers, setContainers] = useState<ContainerType[]>([]);
@@ -10,11 +11,10 @@ function ContainerList() {
   useEffect(() => {
     const fetchContainers = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/fetch/container/info/all');
-        const responseJson = await response.json();
-        setContainers(responseJson.containers);
+        const fetchedContainers: ContainerType[] = await containerService.fetchAll();
+        setContainers(fetchedContainers);
       } catch (err: unknown) {
-        console.error(err)
+        console.error(err);
       }
     };
 
