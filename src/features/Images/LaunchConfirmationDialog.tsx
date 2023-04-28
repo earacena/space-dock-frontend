@@ -1,6 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { Image as ImageType } from './image.types';
+import containerService from '../Containers/api/container.service';
+import type { Container as ContainerType } from '../Containers/container.types';
 
 interface LaunchConfirmationDialogProps {
   setOpen: (value: React.SetStateAction<boolean>) => void,
@@ -12,9 +14,17 @@ function LaunchConfirmationDialog({ image, open, setOpen }: LaunchConfirmationDi
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const launchHandler = () => {
-    // Send a request to backend to create a container with the given image
-    console.log(image.imageShortId);
+  const launchHandler = async () => {
+    try {
+      // Send a request to backend to create a container with the given image
+      const containerInfo = containerService.create(image.imageShortId);
+
+    } catch (error: unknown) {
+      console.error(error)
+    }
+
+    // Close Dialog
+    setOpen(false);
   };
 
   return (
