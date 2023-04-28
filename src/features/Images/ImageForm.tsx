@@ -11,6 +11,8 @@ import {
   TextField,
 } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import imageService from './api/image.service';
+import { Image as ImageType } from './image.types';
 
 interface Inputs {
   gitRepositoryLink: string;
@@ -21,13 +23,13 @@ interface Inputs {
 }
 
 interface ImageFormProps {
-  imageFormDialogOpen: boolean;
   setImageFormDialogOpen: (value: SetStateAction<boolean>) => void;
+  setImages: (value: SetStateAction<ImageType[]>) => void;
 }
 
 function ImageForm({
-  imageFormDialogOpen,
   setImageFormDialogOpen,
+  setImages,
 }: ImageFormProps) {
   const {
     register,
@@ -35,11 +37,19 @@ function ImageForm({
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (formData: Inputs) => {
-    console.log(formData);
+  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+    try {
+      console.log(formData);
+      const imageInfo = await imageService.create(formData);
 
-    // Close dialog
-    setImageFormDialogOpen(false);
+      // Update images list
+      setImages((images) => images.concat(imageInfo))
+
+      // Close dialog
+      setImageFormDialogOpen(false);
+    } catch (error: unknown) {
+      console.error(error);
+    }
   };
 
   return (
@@ -55,6 +65,7 @@ function ImageForm({
           variant="outlined"
           label="Git Repository Link"
           sx={{ my: '5px' }}
+          error={errors?.gitRepositoryLink?.type === 'required'}
           {...register('gitRepositoryLink', { required: 'true' })}
         />
         <FormControl
@@ -79,6 +90,7 @@ function ImageForm({
           id="update-command-multiline-input"
           multiline
           label="Update Command"
+          error={errors?.updateCommand?.type === 'required'}
           {...register('updateCommand')}
         />
         <TextField
@@ -88,6 +100,7 @@ function ImageForm({
           id="build-command-multiline-input"
           multiline
           label="Build Command"
+          error={errors?.buildCommand?.type === 'required'}
           {...register('buildCommand')}
         />
         <TextField
@@ -97,6 +110,7 @@ function ImageForm({
           id="start-command-multiline-input"
           multiline
           label="Start Command"
+          error={errors?.startCommand?.type === 'required'}
           {...register('startCommand', { required: 'true' })}
         />
 
