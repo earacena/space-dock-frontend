@@ -1,5 +1,5 @@
 import { Construction } from '@mui/icons-material';
-import { List, Box, Button } from '@mui/material';
+import { List, Box, Button, CircularProgress, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Image as ImageType } from './image.types';
 import ImageListItem from './ImageListItem';
@@ -7,7 +7,7 @@ import ImageFormDialog from './ImageFormDialog';
 import imageService from './api/image.service';
 
 function ImageList() {
-  const [images, setImages] = useState<ImageType[]>([]);
+  const [images, setImages] = useState<ImageType[] | undefined>(undefined);
   const [imageFormDialogOpened, setImageDialogOpened] = useState<boolean>(false);
 
   useEffect(() => {
@@ -23,10 +23,13 @@ function ImageList() {
     fetchImages();
   }, []);
 
+  const areThereImages: boolean = images !== undefined && images.length !== 0;
+  const retreivedResponseFromServer: boolean = images !== undefined;
+
   return (
     <Box>
-      <List>
-        {images.map((i) => (
+      <List sx={{ display: areThereImages ? '' : 'none' }}>
+        {images?.map((i) => (
           <ImageListItem key={i.imageId} image={i} />
         ))}
       </List>
@@ -35,8 +38,10 @@ function ImageList() {
         setOpen={setImageDialogOpened}
         setImages={setImages}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
-        <Button variant="contained" size="large" color="primary" aria-label="build" onClick={() => setImageDialogOpened(true)}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: '20px' }}>
+        {images === undefined && <CircularProgress sx={{ margin: '10px' }} />}
+        {images?.length === 0 && <Typography>You have not created any images. Use the "Build Image" button below to get started.</Typography>}
+        <Button variant="contained" size="large" color="primary" aria-label="build" onClick={() => setImageDialogOpened(true)} disabled={!retreivedResponseFromServer} sx={{ display: retreivedResponseFromServer ? '' : 'none' }}>
           <Construction sx={{ mr: 1 }} />
           Build Image
         </Button>

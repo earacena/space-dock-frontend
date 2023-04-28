@@ -24,7 +24,7 @@ interface Inputs {
 
 interface ImageFormProps {
   setImageFormDialogOpen: (value: SetStateAction<boolean>) => void;
-  setImages: (value: SetStateAction<ImageType[]>) => void;
+  setImages: (value: SetStateAction<ImageType[] | undefined>) => void;
 }
 
 function ImageForm({
@@ -43,7 +43,7 @@ function ImageForm({
       const imageInfo = await imageService.create(formData);
 
       // Update images list
-      setImages((images) => images.concat(imageInfo))
+      setImages((images) => images?.concat(imageInfo))
 
       // Close dialog
       setImageFormDialogOpen(false);

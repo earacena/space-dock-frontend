@@ -6,7 +6,7 @@ import ImageForm from './ImageForm';
 interface ImageFormDialogProps {
   open: boolean,
   setOpen: (value: SetStateAction<boolean>) => void,
-  setImages: (value: SetStateAction<ImageType[]>) => void;
+  setImages: (value: SetStateAction<ImageType[] | undefined>) => void;
 }
 
 function ImageFormDialog({ open, setOpen, setImages }: ImageFormDialogProps) {
